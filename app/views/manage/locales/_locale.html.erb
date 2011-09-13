@@ -1,0 +1,21 @@
+<%= content_tag(:div, :id=>"locale_#{locale}", :class=>"dinamic-bl") do %>
+  <div class="act-bl">
+    <%= link_to image_tag("manage/ico_edit.gif", :alt=>t('manage.edit'), :title=>t('manage.edit')), edit_manage_locale_path(:id=>locale), :class=>"icons" %>
+  </div>
+  
+  <div class="bot-bg">
+    <div class="dinamic-container">
+    	<div class="right-data">	
+        <div class="right-data-cont">
+          <div class="dinamic-inner">
+          	<div class="r-block">
+              <div class="r-block-cont">
+                <%= link_to locale, edit_manage_locale_path(:id=>locale), :class=>"title" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

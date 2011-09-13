@@ -1,0 +1,11 @@
+= Sunrise Locales
+
+== Usage
+
+  manage_locales_path
+
+== Test
+
+  rake spec
+
+Copyright (c) 2011 Aimbulance, released under the MIT license

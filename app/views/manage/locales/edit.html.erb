@@ -1,0 +1,23 @@
+<div class="edit-bl">
+  <div class="bot-bg">
+    <div class="block-title"><%= t('manage.edit') %>:</div>
+    <%= form_tag manage_locale_path(@locale), :method=>:put, :id=>'locale_form' do %>
+      
+      <div class="edit-cont">
+        <%= text_area_tag :text, @text, :rows=>30, :cols=>100%>
+      </div>
+      
+      <div style="padding: 20px 0px 10px 20px;" class="buts">
+        <%= link_to_function content_tag(:span, t('manage.update')), "$('#locale_form').submit()", :class=>"gr" %>
+        <%= link_to t('manage.cancel'), manage_locales_path, :class=>"erase" %>
+        <%= submit_tag t('manage.update'), :style=>"display:none;" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script type='text/javascript'>
+  $(document).ready(function(){
+   
+  });
+</script>

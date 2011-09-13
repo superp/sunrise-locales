@@ -1,0 +1,7 @@
+ru:
+  manage:
+    plugins:
+      locales: "Переводы"
+      
+    menu:
+      locales: "Переводы"
