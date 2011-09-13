@@ -5,3 +5,16 @@ ru:
       
     menu:
       locales: "Переводы"
+    
+    locales:
+      ru: "Русский"
+      uk: "Український"
+      en: "English"
+      search: "Поиск"
+      replace: "Заменить"
+      notes: "Нажмите F11 (или ESC на Mac OS X), когда курсор находится в редакторе для переключения в fullscreen."
+  
+  flash:
+    locale:
+      updated: "Перевод успешно обновлен"
+      update_error: "Возникли ошибки при обновлении данных"

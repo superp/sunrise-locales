@@ -51,3 +51,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
+
+# For generators
+require "generator_spec/test_case"
+require "generators/sunrise/locales/install_generator"

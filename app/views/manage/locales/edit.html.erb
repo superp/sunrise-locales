@@ -1,10 +1,24 @@
+<%= javascript "codemirror", "yaml"%>
+<%= stylesheet "codemirror"%>
+
 <div class="edit-bl">
   <div class="bot-bg">
     <div class="block-title"><%= t('manage.edit') %>:</div>
     <%= form_tag manage_locale_path(@locale), :method=>:put, :id=>'locale_form' do %>
       
       <div class="edit-cont">
-        <%= text_area_tag :text, @text, :rows=>30, :cols=>100%>
+        <%= text_area_tag :text, @text, :cols=>100%>
+        
+        
+        <div class="buttons">
+          <input type='text' style="width: 5em" id='query' />
+          <button type='button' onclick="search()"><%= t('manage.locales.search')%></button>
+          
+          <input type='text' style="width: 5em" id='replace' /> 
+          <button type='button' onclick="replace()"><%= t('manage.locales.replace')%></button>
+          
+          <small><%= t('manage.locales.notes')%></small>
+        </div>
       </div>
       
       <div style="padding: 20px 0px 10px 20px;" class="buts">
@@ -17,7 +31,71 @@
 </div>
 
 <script type='text/javascript'>
-  $(document).ready(function(){
+  var editor = CodeMirror.fromTextArea(document.getElementById("text"), {
+    mode: 'text/x-yaml', 
+    lineNumbers: true,
+    onCursorActivity: function() {
+      editor.setLineClass(hlLine, null);
+      hlLine = editor.setLineClass(editor.getCursor().line, "activeline");
+    },
+    onKeyEvent: function(i, e) {
+      // Hook into F11
+      if ((e.keyCode == 122 || e.keyCode == 27) && e.type == 'keydown') {
+        e.stop();
+        return toggleFullscreenEditing();
+      }
+    }
+   });
+  
+  var hlLine = editor.setLineClass(0, "activeline");
+  var lastPos = null, lastQuery = null, marked = [];
+ 
+  function unmark() {
+    for (var i = 0; i < marked.length; ++i) marked[i]();
+    marked.length = 0;
+  }
    
-  });
+  function search() {
+    unmark();                     
+    var text = document.getElementById("query").value;
+    if (!text) return;
+    for (var cursor = editor.getSearchCursor(text); cursor.findNext();)
+      marked.push(editor.markText(cursor.from(), cursor.to(), "searched"));
+   
+    if (lastQuery != text) lastPos = null;
+    var cursor = editor.getSearchCursor(text, lastPos || editor.getCursor());
+    if (!cursor.findNext()) {
+      cursor = editor.getSearchCursor(text);
+      if (!cursor.findNext()) return;
+    }
+    editor.setSelection(cursor.from(), cursor.to());
+    lastQuery = text; lastPos = cursor.to();
+  }
+   
+  function replace() {
+    unmark();
+    var text = document.getElementById("query").value,
+        replace = document.getElementById("replace").value;
+    if (!text) return;
+    for (var cursor = editor.getSearchCursor(text); cursor.findNext();)
+      cursor.replace(replace);
+  }
+  
+  function toggleFullscreenEditing()
+  {
+    var editorDiv = $('.CodeMirror-scroll');
+    if (!editorDiv.hasClass('fullscreen')) {
+        toggleFullscreenEditing.beforeFullscreen = { height: editorDiv.height(), width: editorDiv.width() }
+        editorDiv.addClass('fullscreen');
+        editorDiv.height('100%');
+        editorDiv.width('100%');
+        editor.refresh();
+    }
+    else {
+        editorDiv.removeClass('fullscreen');
+        editorDiv.height(toggleFullscreenEditing.beforeFullscreen.height);
+        editorDiv.width(toggleFullscreenEditing.beforeFullscreen.width);
+        editor.refresh();
+    }
+  }
 </script>

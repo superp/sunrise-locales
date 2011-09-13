@@ -10,7 +10,7 @@
           <div class="dinamic-inner">
           	<div class="r-block">
               <div class="r-block-cont">
-                <%= link_to locale, edit_manage_locale_path(:id=>locale), :class=>"title" %>
+                <%= link_to t("manage.locales.#{locale}"), edit_manage_locale_path(:id=>locale), :class=>"title" %>
               </div>
             </div>
           </div>

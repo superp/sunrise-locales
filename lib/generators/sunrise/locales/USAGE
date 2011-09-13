@@ -1,0 +1,6 @@
+Usage:
+  rails generate sunrise:locales:install 
+                 
+Example:
+
+  rails g sunrise:locales:install

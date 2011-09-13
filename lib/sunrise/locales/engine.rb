@@ -5,10 +5,11 @@ module Sunrise
   module Locales
     class Engine < ::Rails::Engine
       config.before_initialize do
-        Sunrise::Plugin.register :yml_locales do |plugin|
+        Sunrise::Plugin.register :locales do |plugin|
           plugin.model = 'sunrise/yml_locale'
           plugin.menu = 'select'
           plugin.version = Sunrise::Locales::VERSION.dup
+          plugin.klass = Sunrise::YmlLocale
         end
         
         Sunrise::Plugins.activate(:locales)

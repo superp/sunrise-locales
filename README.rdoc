@@ -1,5 +1,9 @@
 = Sunrise Locales
 
+== Install
+
+  rails g sunrise:locales:install
+
 == Usage
 
   manage_locales_path
